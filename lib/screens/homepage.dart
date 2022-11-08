@@ -3,9 +3,9 @@ import 'package:graphql_app/screens/add_Todo_page.dart';
 
 //Main page in our App ; Displays List of ToDos
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+    const MyHomePage({Key? key}) : super(key: key);
 
-  final String title;
+
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(widget.title),
+        title:const Text("GraphQl App"),
       ),
 
       //Custom scroll view provides a cool animation look when we scroll

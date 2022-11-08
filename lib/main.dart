@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_app/providers/add_task_provider.dart';
 import 'package:graphql_app/screens/homepage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
-  await initHiveForFlutter();  //InitializinG Hive since it's the default storing mechanism for Graphql
+  await initHiveForFlutter(); //InitializinG Hive since it's the default storing mechanism for Graphql
   runApp(const MyApp());
 }
 
@@ -12,12 +14,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Graphql App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AddTaskProvider())
+      ],
+      child: const MaterialApp(
+        home: MyHomePage(),
       ),
-      home: const MyHomePage(title: 'Graphql App'),
     );
   }
 }
