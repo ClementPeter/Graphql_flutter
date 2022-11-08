@@ -34,26 +34,57 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 children: [
                   Container(
                     margin: const EdgeInsets.all(10),
-                    child: const Text('Available Todo'),
+                    child: const Text('Add your first todo'),
                   ),
-                  Expanded(
-                    child: ListView(
-                      children: List.generate(30, (index) {
-                        return ListTile(
-                          title: Text("Todo Title"),
-                          subtitle: Text("Todo time"),
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.grey,
-                          ),
-                          trailing: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.delete),
-                          ),
-                    
-                        );
-                      }),
+                  TextFormField(
+                    controller: _task,
+                    decoration: const InputDecoration(
+                      labelText: 'Todo Task',
+                    ),
+                  ),
+                  GestureDetector(
+                    // onTap: task.getStatus == true
+                    //     ? null
+                    //     : () {
+                    //         ///Add task button
+                    //         ///
+                    //         print(_task.text);
+                    //         if (_task.text.isNotEmpty) {
+                    //           task.addTask(
+                    //               task: _task.text.trim(), status: 'Pending');
+                    //         }
+                    //       },
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      margin: const EdgeInsets.all(30),
+                      decoration: BoxDecoration(
+                          // color: task.getStatus == true
+                          //     ? Colors.grey
+                          //     : Colors.blue,
+                          borderRadius: BorderRadius.circular(10)),
+                      // child: Text(task.getStatus == true
+                      //     ? 'Loading...'
+                      //     : 'Save Task'),
                     ),
                   )
+                  // Expanded(
+                  //   child: ListView(
+                  //     children: List.generate(30, (index) {
+                  //       return ListTile(
+                  //         title: Text("Todo Title"),
+                  //         subtitle: Text("Todo time"),
+                  //         leading: CircleAvatar(
+                  //           backgroundColor: Colors.grey,
+                  //         ),
+                  //         trailing: IconButton(
+                  //           onPressed: () {},
+                  //           icon: const Icon(Icons.delete),
+                  //         ),
+
+                  //       );
+                  //     }),
+                  //   ),
+                  // )
                 ],
               ),
             ),

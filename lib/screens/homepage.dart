@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:graphql_app/screens/add_Todo_page.dart';
 
 //Main page in our App ; Displays List of ToDos
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -47,10 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             onPressed: () {},
                             icon: const Icon(Icons.delete),
                           ),
-                          // trailing:  IconButton(
-                          //  // icon: Icon(Icons.delete),
-                          //   icon: const Icon(Icons.delete)
-                          // ),
+                 
                         );
                       }),
                     ),
@@ -63,8 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddTodoPage()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddTodoPage(),
+            ),
+          );
         },
         icon: const Icon(Icons.add),
         label: const Text('Add Todo'),
