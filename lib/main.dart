@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_app/screens/homepage.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
-void main() {
+void main() async {
+  await initHiveForFlutter();  //InitializinG Hive since it's the default storing mechanism for Graphql
   runApp(const MyApp());
 }
 

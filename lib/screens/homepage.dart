@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_app/screens/add_Todo_page.dart';
+
+//Main page in our App ; Displays List of ToDos
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -10,14 +13,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,26 +20,13 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         title: Text(widget.title),
       ),
-      // body: Center(
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: <Widget>[
-      //       const Text(
-      //         'You have pushed the button this many times:',
-      //       ),
-      //       Text(
-      //         '$_counter',
-      //         style: Theme.of(context).textTheme.headline4,
-      //       ),
-      //     ],
-      //   ),
-      // ),
-      //Custome scroll view provides a cool animation look when we scroll
+
+      //Custom scroll view provides a cool animation look when we scroll
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: [
@@ -62,8 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             backgroundColor: Colors.grey,
                           ),
                           trailing: IconButton(
-                            onPressed: (){},
-                            icon: const  Icon(Icons.delete),
+                            onPressed: () {},
+                            icon: const Icon(Icons.delete),
                           ),
                           // trailing:  IconButton(
                           //  // icon: Icon(Icons.delete),
@@ -80,9 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        // label: ,
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddTodoPage()));
+        },
         icon: const Icon(Icons.add),
         label: const Text('Add Todo'),
       ),
