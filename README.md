@@ -33,9 +33,11 @@ https://wisdommatt-graphql-todolist.herokuapp.com/
 
 > Simple Layout : Scrollable 
 
-> Well commented and Explained Codebase
+> App Refresh feauture
 
 > CREATE READ AND DELETE OPERATION
+
+> Well commented and Explained Codebase
 
 
 
@@ -48,11 +50,6 @@ https://wisdommatt-graphql-todolist.herokuapp.com/
 
 
 ![Screenshot_20221123-114441](https://user-images.githubusercontent.com/61213263/203532554-cdcc6662-ca66-4b96-b45d-b7438548d242.png)
-
-
-
-
-
 
 
 ## 🔌 Plugins

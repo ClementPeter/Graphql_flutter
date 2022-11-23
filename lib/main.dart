@@ -7,7 +7,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  await initHiveForFlutter(); //InitializinG Hive since it's the default storing mechanism for Graphql
+  await initHiveForFlutter(); //InitializinG Hive since it's the default storage mechanism for Graphql
   runApp(const MyApp());
 }
 

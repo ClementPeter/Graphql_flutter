@@ -12,35 +12,31 @@ class GetTaskProvider extends ChangeNotifier {
   //setters
   bool _status = false; //false;  means nothing is happpening in our app atm
   String _response = ""; //stores response message
-  dynamic _list = [];
+  dynamic _list = [];  //Stores result from backend API as List 
 
   final EndPoint _point = EndPoint(); //Create EndPoint Instance
 
-  //method to add task
-  //the data passed to addTask() eventually gets into the GraphQl client via ValurNotifier
+  //method to get task
+  //the data passed to addTask() eventually gets into the GraphQl client via Value Notifier
   void getTask() async {
     //Get our GraphQl client
     ValueNotifier<GraphQLClient> client = _point.getClient();
 
-    //Mutate changes into our Graphql Client
+    //Query changes into our Graphql Client
     QueryResult result = await client.value.query(
       QueryOptions(
-          document: gql(GetTaskSchema.getTaskJson),
-          fetchPolicy: FetchPolicy.networkOnly),
+        document: gql(GetTaskSchema.getTaskJson),
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
     );
 
     //checking for errors
     if (result.hasException) {
-      // print(result.exception); //if there is error; print the error...else...
       _status = false;
       if (result.exception!.graphqlErrors.isEmpty) {
-        // print("result from 1st if");
-        // print(result.exception);
         _response =
             "Internet Access not Avalaible"; //if the error is due to internet connection
       } else {
-        //  print("result from 2nd if");
-        //print(result.exception);
         _response = result.exception!.graphqlErrors[0].message.toString();
       }
       notifyListeners();
@@ -48,20 +44,17 @@ class GetTaskProvider extends ChangeNotifier {
       //print(result.data);
       _status =
           false; //False,Signifies that No loading opeation is happening in out app
-      // _response = "Task was added successfully";
+
       _list = result.data;
       notifyListeners();
     }
   }
 
-  //To avaid duplicate results from getTask ; We create a seperate function to get our task from the updated _list directlyand check if its null
+  //To avaid duplicate results from getTask ; We create a seperate function to get our task from the updated _list directl and check if its null
   dynamic getResponseData() {
     if (_list.isNotEmpty) {
       final data = _list;
-      // print(data);
-      // print("========================================");
-      //  print(data["getTodos"]);
-      //return data['getToDos'] ?? {};
+
       return data['getTodos'] ?? {};
     } else {
       return {};

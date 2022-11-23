@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:graphql_app/providers/add_task_provider.dart';
 
 class AddTodoPage extends StatefulWidget {
-  //const AddTodoPage({super.key, required this.title});
   const AddTodoPage({Key? key}) : super(key: key);
 
   @override
@@ -56,9 +55,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
                           );
                           _taskController
                               .clear(); //Clear the text field after adding task succesfully
-
-                          //print(task.getResponse);
-                          //Check the Snack bar message to see if it tallies the pop the screen off
+                        
+                          //Check the Snack bar message to see if it tallies with "endsWith" the pop the screen off
                           if (task.getResponse.endsWith("fully") == true) {
                             Navigator.pop(context);
                             task.clear();

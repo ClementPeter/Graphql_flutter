@@ -27,9 +27,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Consumer<GetTaskProvider>(builder: (context, task, child) {
         if (_isFetched == false) {
           task.getTask();
-          //delays for 3 sec and triggers _IsFetched to prevent graphQl from overfetching data from task.getData
+          //delays for 2 sec and triggers _IsFetched to prevent graphQl from overfetching data from task.getData
           Future.delayed(const Duration(seconds: 2), () => _isFetched = true);
         }
+        //Swipe down to refresh feature
         return RefreshIndicator(
           onRefresh: () {
             task.getTask(); //On screen refresh fetch tasks
@@ -54,79 +55,81 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("No Todo found"),
                       Expanded(
                         child: ListView(
-                          children: List.generate(task.getResponseData().length,
-                              (index) {
-                            final data = task.getResponseData()[
-                                index]; //Uased to populate the ListTile
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                ),
-                                tileColor: Colors.grey[300],
-                                // /contentPadding: const EdgeInsets.all(5),
-                                title: Text(data["task"]),
-                                subtitle: Text(data["timeAdded"].toString()),
-                                leading: CircleAvatar(
-                                  backgroundColor: Colors.grey,
-                                  child: Text(
-                                    data["id"].toString(),
-                                    style: const TextStyle(color: Colors.white),
+                          children: List.generate(
+                            task.getResponseData().length,
+                            (index) {
+                              final data = task.getResponseData()[
+                                  index]; //Used to populate the ListTile
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListTile(
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
                                   ),
-                                ),
-                                //Delete Task Button - Consumer helps to inject the provider into the button in order for the provider to be trigger
-                                trailing: Consumer<DeleteTaskProvider>(
-                                  builder: (context, deleteTask, child) {
-                                    WidgetsBinding.instance
-                                        .addPostFrameCallback(
-                                      (_) {
-                                        if (deleteTask.getResponse != '') {
+                                  tileColor: Colors.grey[300],
+
+                                  title: Text(data["task"]),
+                                  subtitle: Text(data["timeAdded"].toString()),
+                                  leading: CircleAvatar(
+                                    backgroundColor: Colors.grey,
+                                    child: Text(
+                                      data["id"].toString(),
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  //Delete Task Button - Consumer helps to inject the provider into the button in order for the provider to be trigger changes
+                                  trailing: Consumer<DeleteTaskProvider>(
+                                    builder: (context, deleteTask, child) {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback(
+                                        (_) {
+                                          if (deleteTask.getResponse != '') {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    deleteTask.getResponse),
+                                              ),
+                                            );
+                                            deleteTask.clear();
+                                          }
+                                        },
+                                      );
+                                      return IconButton(
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color:
+                                              Color.fromARGB(255, 114, 33, 27),
+                                        ),
+                                        //Shows Snackbar for user to confirm Deleteion
+                                        onPressed: () {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
-                                              content:
-                                                  Text(deleteTask.getResponse),
+                                              content: const Text(
+                                                "Are you sure you want to delete this task",
+                                              ),
+                                              action: SnackBarAction(
+                                                label: "Delete Now",
+                                                onPressed: () {
+                                                  deleteTask.deleteTask(
+                                                    taskId: data["id"],
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           );
-                                          deleteTask.clear();
-                                        }
-                                      },
-                                    );
-                                    return IconButton(
-                                      icon: const Icon(
-                                        Icons.delete,
-                                        color: Color.fromARGB(255, 114, 33, 27),
-                                        // color: deleteTask.status == true ? Colors.grey : Colors.white,
-                                      ),
-                                      //Shows Snackbat for user to confirm Deleteion
-                                      onPressed: () {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            //backgroundColor: Colors.white,
-                                            content: const Text(
-                                              "Are you sure you want to delete this task",
-                                            ),
-                                            action: SnackBarAction(
-                                              label: "Delete Now",
-                                              onPressed: () {
-                                                deleteTask.deleteTask(
-                                                  taskId: data["id"],
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        );
-                                        //
-                                      },
-                                    );
-                                  },
+                                          //
+                                        },
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                            );
-                          }),
+                              );
+                            },
+                          ),
                         ),
                       ),
                       //To prevent the Todo Task from hiding underneath the Floating Action Button

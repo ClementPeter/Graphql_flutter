@@ -24,7 +24,7 @@ class AddTaskProvider extends ChangeNotifier {
 
     notifyListeners(); //Used to trigger change update to the provider class
 
-    //Get our GraphQl client
+    //Get our GraphQl client/EndPoint
     ValueNotifier<GraphQLClient> client = _point.getClient();
 
     //Mutate changes into our Graphql Client
@@ -41,16 +41,12 @@ class AddTaskProvider extends ChangeNotifier {
 
     //checking for errors
     if (result.hasException) {
-      // print(result.exception); //if there is error; print the error...else...
+      // print(result.exception); //if there is error; print the error
       _status = false;
       if (result.exception!.graphqlErrors.isEmpty) {
-        // print("result from 1st if");
-        // print(result.exception);
         _response =
             "Internet Access not Avalaible"; //if the error is due to internet connection
       } else {
-        //  print("result from 2nd if");
-        // print(result.exception);
         _response = result.exception!.graphqlErrors[0].message.toString();
       }
       notifyListeners();

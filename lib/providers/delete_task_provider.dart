@@ -15,8 +15,8 @@ class DeleteTaskProvider extends ChangeNotifier {
 
   final EndPoint _point = EndPoint(); //Create EndPoint Instance
 
-  //method to add task
-  //the data passed to addTask() eventually gets into the GraphQl client via ValurNotifier
+  //method to Delete task
+  //the data passed to deleteTaj() eventually gets into the GraphQl client via ValueNotifier
   void deleteTask({int? taskId}) async {
     _status =
         true; //True;Signifies that loading operation is happening in our app
