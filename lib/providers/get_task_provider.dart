@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:graphql_app/schema/add_Task_schema.dart';
+import 'package:graphql_app/schema/get_task_schema.dart';
 import 'package:graphql_app/schema/urlEndPoint.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-//Provider class for Adding Task to Graphql
-class AddTaskProvider extends ChangeNotifier {
+//Provider class for Get Task to Graphql
+class GetTaskProvider extends ChangeNotifier {
   //getters
   bool get getStatus => _status;
   String get getResponse => _response;
@@ -12,30 +13,20 @@ class AddTaskProvider extends ChangeNotifier {
   //setters
   bool _status = false; //false;  means nothing is happpening in our app atm
   String _response = ""; //stores response message
+  dynamic _list = [];
 
   final EndPoint _point = EndPoint(); //Create EndPoint Instance
 
   //method to add task
   //the data passed to addTask() eventually gets into the GraphQl client via ValurNotifier
-  void addTask({String? task, String? status}) async {
-    _status =
-        true; //True;Signifies that loading operation is happening in our app
-    _response = "Please wait...";
-
-    notifyListeners(); //Used to trigger change update to the provider class
-
+  void getTask() async {
     //Get our GraphQl client
     ValueNotifier<GraphQLClient> client = _point.getClient();
 
     //Mutate changes into our Graphql Client
     QueryResult result = await client.value.mutate(
       MutationOptions(
-        document: gql(AddTaskSchema.addTaskJson),
-        //we pass in our needed SCHEMA variables (AddTaskSchema atm) into the variable --This is synomynous to creating a POST req.
-        variables: {
-          'task': task,
-          'status': status,
-        },
+        document: gql(GetTaskSchema.getTaskJson),
       ),
     );
 
@@ -58,11 +49,26 @@ class AddTaskProvider extends ChangeNotifier {
       print(result.data);
       _status =
           false; //False,Signifies that No loading opeation is happening in out app
-      _response = "Task was added successfully";
+      // _response = "Task was added successfully";
+      _list = result.data;
       notifyListeners();
     }
   }
-  
+
+  //To avaid duplicate results from getTask ; We create a seperate function to get our task from the updated _list directlyand check if its null
+  dynamic getResponseData() {
+    if (_list.isNotEmpty) {
+      final data = _list;
+      // print(data);
+      print("========================================");
+      print(data["getTodos"]);
+      //return data['getToDos'] ?? {};
+      return data['getTodos'] ?? {};
+    } else {
+      return {};
+    }
+  }
+
   //Function to clear the response
   void clear() {
     _response = "";

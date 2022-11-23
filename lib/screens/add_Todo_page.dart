@@ -50,13 +50,13 @@ class _AddTodoPageState extends State<AddTodoPage> {
         title: const Text('Add New Todo'),
       ),
 
-      //Custome scroll view provides a cool animation look when we scroll
+      //Custom scroll view provides a cool animation look when we scroll
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.all(10),
-              //height: MediaQuery.of(context).size.height,
+             
               child: Column(
                 children: [
                   Container(
@@ -75,14 +75,18 @@ class _AddTodoPageState extends State<AddTodoPage> {
                   //Add Task Button - Consumer helps to inject the provider into the button in order for the provider to be trigger
                   Consumer<AddTaskProvider>(
                     builder: (context, task, child) {
-                      WidgetsBinding.instance!.addPostFrameCallback((_) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
                         if (task.getResponse != '') {
+                          //Show snackbar
                           ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(task.getResponse)));
+                            SnackBar(
+                              content: Text(task.getResponse),
+                            ),
+                          );
                           task.clear();
                         }
                       });
-                      return GestureDetector(
+                      return InkWell(
                         //if task.status ==true (meaning Nothing is happening) return null; else Add task from textField to addTask Provider method
                         onTap: task.getStatus == true
                             ? null
