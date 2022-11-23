@@ -21,32 +21,38 @@ samples, guidance on mobile development, and a full API reference.
 
 A ToDo App built using GRAPHQL as backend Database Service to create READ AND DELETE Tasks
 
-## 🔗 Backend 
+## 🔗 Backend Service
 
 https://wisdommatt-graphql-todolist.herokuapp.com/
 
-> Its' a Open backed Serveice built on GraphQl
+> Its' a Open backend Serveice built on GraphQl
 
-
-### Documentation
-Well commented and Explained Structured Code
 
 ### Features Implemented
 > GRAPHQL API Consumption : Mutation & Query 
 
 > Simple Layout : Scrollable 
 
-> Well commented and Explained Structured Code
+> Well commented and Explained Codebase
 
 > CREATE READ AND DELETE OPERATION
 
 
 
 ## 📸 Screen shots
+![Screenshot_20221123-114448](https://user-images.githubusercontent.com/61213263/203532556-d5753131-e9d2-4b80-b0c3-e48cd13b456d.png)
 
 
- ![Screenshot_20221122-155308](https://user-images.githubusercontent.com/61213263/203463395-efeada44-dda1-4750-8886-41953c5698ee.png) 
- ![Screenshot_20221122-155338](https://user-images.githubusercontent.com/61213263/203463451-fb881a23-76e5-4034-981b-442ccc8ce6bf.png) 
+
+![Screenshot_20221123-104656](https://user-images.githubusercontent.com/61213263/203532555-9b474fbd-a58a-49df-8ca5-1c5a0664d230.png)
+
+
+![Screenshot_20221123-114441](https://user-images.githubusercontent.com/61213263/203532554-cdcc6662-ca66-4b96-b45d-b7438548d242.png)
+
+
+
+
+
 
 
 ## 🔌 Plugins
