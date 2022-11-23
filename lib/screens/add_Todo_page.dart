@@ -11,35 +11,7 @@ class AddTodoPage extends StatefulWidget {
 }
 
 class _AddTodoPageState extends State<AddTodoPage> {
-  MaterialBanner _showMaterialBanner(BuildContext context) {
-    return MaterialBanner(
-        content: Text('Hello, I am a Material Banner'),
-        leading: Icon(Icons.error),
-        padding: EdgeInsets.all(15),
-        backgroundColor: Colors.lightGreenAccent,
-        contentTextStyle: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo),
-        actions: [
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'Agree',
-              style: TextStyle(color: Colors.purple),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-            },
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: Colors.purple),
-            ),
-          ),
-        ]);
-  }
-
-  final TextEditingController _task =
+  final TextEditingController _taskController =
       TextEditingController(); //Helps us to track text input in our TextField
 
   @override
@@ -56,7 +28,6 @@ class _AddTodoPageState extends State<AddTodoPage> {
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.all(10),
-             
               child: Column(
                 children: [
                   Container(
@@ -66,13 +37,13 @@ class _AddTodoPageState extends State<AddTodoPage> {
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: TextFormField(
-                      controller: _task,
+                      controller: _taskController,
                       decoration: const InputDecoration(
                         labelText: 'Todo Task',
                       ),
                     ),
                   ),
-                  //Add Task Button - Consumer helps to inject the provider into the button in order for the provider to be trigger
+                  //Add/Save Task Button - Consumer helps to inject the provider into the button in order for the provider to be trigger
                   Consumer<AddTaskProvider>(
                     builder: (context, task, child) {
                       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -83,7 +54,15 @@ class _AddTodoPageState extends State<AddTodoPage> {
                               content: Text(task.getResponse),
                             ),
                           );
-                          task.clear();
+                          _taskController
+                              .clear(); //Clear the text field after adding task succesfully
+
+                          //print(task.getResponse);
+                          //Check the Snack bar message to see if it tallies the pop the screen off
+                          if (task.getResponse.endsWith("fully") == true) {
+                            Navigator.pop(context);
+                            task.clear();
+                          }
                         }
                       });
                       return InkWell(
@@ -92,21 +71,26 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             ? null
                             : () {
                                 //print(_task.text);
-                                if (_task.text.isNotEmpty) {
+                                if (_taskController.text.isNotEmpty) {
                                   task.addTask(
-                                      task: _task.text.trim(),
-                                      status: 'Pending');
+                                    task: _taskController.text.trim(),
+                                    status: 'Pending',
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Enter a Task'),
+                                    ),
+                                  );
                                 }
                               },
                         child: Container(
                           padding: const EdgeInsets.all(15),
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            // color: Colors.blue,
                             color: task.getStatus == true
                                 ? Colors.grey
                                 : Colors.blue,
-
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(

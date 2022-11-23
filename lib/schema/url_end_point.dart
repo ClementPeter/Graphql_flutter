@@ -6,7 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 //This is a good way of doing it cos ur backend stuff would be isolated from the UI
 class EndPoint {
   ValueNotifier<GraphQLClient> getClient() {
-    ValueNotifier<GraphQLClient> _client = ValueNotifier(
+    ValueNotifier<GraphQLClient> client = ValueNotifier(
       GraphQLClient(
         link: HttpLink(endpointUrl),
         cache: GraphQLCache(
@@ -14,6 +14,6 @@ class EndPoint {
         ),
       ),
     );
-    return _client;
+    return client;
   }
 }

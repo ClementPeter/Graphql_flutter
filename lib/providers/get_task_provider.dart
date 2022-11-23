@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:graphql_app/schema/add_Task_schema.dart';
 import 'package:graphql_app/schema/get_task_schema.dart';
-import 'package:graphql_app/schema/urlEndPoint.dart';
+import 'package:graphql_app/schema/url_end_point.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 //Provider class for Get Task to Graphql
@@ -24,15 +23,15 @@ class GetTaskProvider extends ChangeNotifier {
     ValueNotifier<GraphQLClient> client = _point.getClient();
 
     //Mutate changes into our Graphql Client
-    QueryResult result = await client.value.mutate(
-      MutationOptions(
-        document: gql(GetTaskSchema.getTaskJson),
-      ),
+    QueryResult result = await client.value.query(
+      QueryOptions(
+          document: gql(GetTaskSchema.getTaskJson),
+          fetchPolicy: FetchPolicy.networkOnly),
     );
 
     //checking for errors
     if (result.hasException) {
-      print(result.exception); //if there is error; print the error...else...
+      // print(result.exception); //if there is error; print the error...else...
       _status = false;
       if (result.exception!.graphqlErrors.isEmpty) {
         // print("result from 1st if");
@@ -41,12 +40,12 @@ class GetTaskProvider extends ChangeNotifier {
             "Internet Access not Avalaible"; //if the error is due to internet connection
       } else {
         //  print("result from 2nd if");
-        print(result.exception);
+        //print(result.exception);
         _response = result.exception!.graphqlErrors[0].message.toString();
       }
       notifyListeners();
     } else {
-      print(result.data);
+      //print(result.data);
       _status =
           false; //False,Signifies that No loading opeation is happening in out app
       // _response = "Task was added successfully";
@@ -60,8 +59,8 @@ class GetTaskProvider extends ChangeNotifier {
     if (_list.isNotEmpty) {
       final data = _list;
       // print(data);
-      print("========================================");
-      print(data["getTodos"]);
+      // print("========================================");
+      //  print(data["getTodos"]);
       //return data['getToDos'] ?? {};
       return data['getTodos'] ?? {};
     } else {
