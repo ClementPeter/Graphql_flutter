@@ -51,6 +51,10 @@ https://wisdommatt-graphql-todolist.herokuapp.com/
 
 ![Screenshot_20221123-114441](https://user-images.githubusercontent.com/61213263/203532554-cdcc6662-ca66-4b96-b45d-b7438548d242.png)
 
+### Resources Used
+
+> Tutorial Playlist : https://www.youtube.com/watch?v=erT7w929hcc&list=PLpTC1FqgUpLSbaePji9eam7NN2m1ojZKp
+
 
 ## 🔌 Plugins
 
