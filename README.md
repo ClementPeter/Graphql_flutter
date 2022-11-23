@@ -17,25 +17,25 @@ samples, guidance on mobile development, and a full API reference.
 
 
 
-# ⚡ GraphQl App
+# ⚡ GraphQL App
 
-A ToDo App built using GRAPHQL as backend Database Service to create READ AND DELETE Tasks
+A ToDo App built using GraphQL as backend Database Service to create READ AND DELETE Tasks
 
 ## 🔗 Backend Service
 
 https://wisdommatt-graphql-todolist.herokuapp.com/
 
-> Its' a Open backend Serveice built on GraphQl
+> Its' a Open backend Serveice built on GraphQL
 
 
 ### Features Implemented
-> GRAPHQL API Consumption : Mutation & Query 
+> GraphQL API Consumption : Mutation & Query 
 
-> Simple Layout : Scrollable 
+> Simple Layout
 
 > App Refresh feauture
 
-> CREATE READ AND DELETE OPERATION
+> CREATE READ AND DELETE OPERATION isng GraphQL
 
 > Well commented and Explained Codebase
 
@@ -57,4 +57,4 @@ https://wisdommatt-graphql-todolist.herokuapp.com/
 | Name                                                    | Usage                                               |
 | ------------------------------------------------------- | --------------------------------------------------- |
 | [**Provider**]https://pub.dev/packages/webview_flutter)    | State Mgmt                 |
-| [**GraphQl Flutter**]https://pub.dev/packages/flutter_youtube_downloader/versions/0.0.1)    | Plugin to Integrate GraphQl features into the App  |
+| [**GraphQL Flutter**]https://pub.dev/packages/flutter_youtube_downloader/versions/0.0.1)    | Plugin to Integrate GraphQL features into the App  |
